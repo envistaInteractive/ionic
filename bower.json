@@ -29,7 +29,6 @@
   "license": "MIT",
   "private": false,
   "ignore": [
-    "**/.*",
     "CONTRIBUTING.md",
     "Gruntfile.js",
     "component.json",

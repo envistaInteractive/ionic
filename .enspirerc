@@ -1,0 +1,13 @@
+{
+    "scss": [
+        "scss/ionic.scss"
+    ],
+    "js": [
+        "release/js/ionic.js",
+        "release/js/ionic-angular.js"
+    ],
+    "fonts": [
+        "release/fonts/**/*"
+    ],
+    "css": []
+}
