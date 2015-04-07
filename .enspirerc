@@ -1,6 +1,7 @@
 {
     "scss": [
-        "scss/ionic.scss"
+        "{% _THEME_ %}",
+        "scss/theme.scss"
     ],
     "js": [
         "release/js/ionic.js",
