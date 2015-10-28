@@ -302,7 +302,7 @@ describe('$ionicSideMenus controller', function() {
     expect(ctrl.getOpenPercentage()).toEqual(-100);
   });
 
-  it('should register with backButton on open and dereg on close', inject(function($ionicPlatform) {
+  it('should register with backButton on open and dereg on close', inject(function($ionicPlatform, IONIC_BACK_PRIORITY) {
     var openAmount = 0;
     var deregSpy = jasmine.createSpy('deregister');
     spyOn($ionicPlatform, 'registerBackButtonAction').andReturn(deregSpy);
@@ -314,13 +314,50 @@ describe('$ionicSideMenus controller', function() {
     ctrl.$scope.$apply();
     expect($ionicPlatform.registerBackButtonAction).toHaveBeenCalledWith(
       jasmine.any(Function),
-      PLATFORM_BACK_BUTTON_PRIORITY_SIDE_MENU
+      IONIC_BACK_PRIORITY.sideMenu
     );
     expect(deregSpy).not.toHaveBeenCalled();
     openAmount = 0;
     ctrl.$scope.$apply();
     expect(deregSpy).toHaveBeenCalled();
   }));
+
+  it('should emit $ionicSideMenuOpen on open and $ionicSideMenuClose on close', inject(function($rootScope){
+    // create spies and event listeners
+    var openSpy = jasmine.createSpy('openSpy');
+    $rootScope.$on('$ionicSideMenuOpen', openSpy);
+    var closeSpy = jasmine.createSpy('openSpy');
+    $rootScope.$on('$ionicSideMenuClose', closeSpy);
+
+    // left open
+    ctrl.toggleLeft();
+    expect(ctrl.getOpenPercentage()).toEqual(100);
+    ctrl.$scope.$apply();
+    expect(openSpy).toHaveBeenCalled();
+    expect(openSpy.mostRecentCall.args[1]).toEqual("left");
+
+    // left close
+    ctrl.toggleLeft();
+    expect(ctrl.getOpenPercentage()).toEqual(0);
+    ctrl.$scope.$apply();
+    expect(closeSpy).toHaveBeenCalled();
+    expect(closeSpy.mostRecentCall.args[1]).toEqual("left");
+
+    // right open
+    ctrl.toggleRight();
+    expect(ctrl.getOpenPercentage()).toEqual(-100);
+    ctrl.$scope.$apply();
+    expect(openSpy).toHaveBeenCalled();
+    expect(openSpy.mostRecentCall.args[1]).toEqual("right");
+
+    // right close
+    ctrl.toggleRight();
+    expect(ctrl.getOpenPercentage()).toEqual(0);
+    ctrl.$scope.$apply();
+    expect(closeSpy).toHaveBeenCalled();
+    expect(closeSpy.mostRecentCall.args[1]).toEqual("right");
+  }));
+
 
   it('should deregister back button action on $destroy', inject(function($ionicPlatform) {
     var openAmount = 0;

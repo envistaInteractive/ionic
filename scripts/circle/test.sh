@@ -24,8 +24,8 @@ function run {
   case $INDEX in
   0)
     [ -z $IS_MASTER ] || node_modules/.bin/gulp ddescribe-iit
-    node_modules/.bin/gulp jshint
-    node_modules/.bin/gulp karma --browsers=PhantomJS --reporters=dots
+    node_modules/.bin/gulp eslint
+    node_modules/.bin/gulp karma --browsers=PhantomJS --reporters=dots,coverage
     ;;
   1)
     # node_modules/.bin/gulp snapshot-sauce \

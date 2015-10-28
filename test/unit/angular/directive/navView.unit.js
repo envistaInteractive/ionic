@@ -900,7 +900,7 @@ describe('Ionic nav-view', function() {
     expect(afterLeave.stateName).toEqual('page1');
     expect(leave.stateName).toEqual('page1');
     expect(leave.transitionId).toEqual(2);
-
+    
     $state.go(page1State);
     $q.flush();
     $timeout.flush();
@@ -1009,6 +1009,59 @@ describe('Ionic nav-view', function() {
 
     expect(unloadedEvent.stateName).toEqual('tabAbstract.tab3page1');
   }));
+  
+  it('should emit $ionicView events in correct order', inject(function ($state, $q, $timeout, $compile, $ionicConfig) {
+    $ionicConfig.views.maxCache(0);
+  
+    var order = [];
+    scope.$on('$ionicView.loaded', function(ev, d){
+      order.push('$ionicView.loaded');
+    });
+    scope.$on('$ionicView.beforeEnter', function(ev, d){
+      order.push('$ionicView.beforeEnter');
+    });
+    scope.$on('$ionicView.enter', function(ev, d){
+      order.push('$ionicView.enter');
+    });
+    scope.$on('$ionicView.afterEnter', function(ev, d){
+      order.push('$ionicView.afterEnter');
+    });
+    scope.$on('$ionicView.beforeLeave', function(ev, d){
+      order.push('$ionicView.beforeLeave');
+    });
+    scope.$on('$ionicView.leave', function(ev, d){
+      order.push('$ionicView.leave');
+    });
+    scope.$on('$ionicView.afterLeave', function(ev, d){
+      order.push('$ionicView.afterLeave');
+    });
+    scope.$on('$ionicView.unloaded', function(ev, d){
+      order.push('$ionicView.unloaded');
+    });
+
+    elem.append($compile('<div><ion-nav-view></ion-nav-view></div>')(scope));
+
+    $state.go(page1State);
+    $q.flush();
+    $timeout.flush();
+
+    $state.go(page2State);
+    $q.flush();
+    $timeout.flush();
+
+    expect(order[0]).toEqual('$ionicView.loaded');
+    expect(order[1]).toEqual('$ionicView.beforeEnter');
+    expect(order[2]).toEqual('$ionicView.enter');
+    expect(order[3]).toEqual('$ionicView.afterEnter');
+    expect(order[4]).toEqual('$ionicView.loaded');
+    expect(order[5]).toEqual('$ionicView.beforeEnter');
+    expect(order[6]).toEqual('$ionicView.beforeLeave');
+    expect(order[7]).toEqual('$ionicView.enter');
+    expect(order[8]).toEqual('$ionicView.leave');
+    expect(order[9]).toEqual('$ionicView.afterEnter');
+    expect(order[10]).toEqual('$ionicView.afterLeave');
+    expect(order[11]).toEqual('$ionicView.unloaded');
+  }));
 
   it('should clear ion-nav-view cache', inject(function ($state, $q, $timeout, $compile, $ionicHistory) {
     elem.append($compile('<div><ion-nav-view></ion-nav-view></div>')(scope));
@@ -1044,6 +1097,7 @@ describe('Ionic nav-view', function() {
 
     expect(clearCacheCollection.length).toBe(0);
     $ionicHistory.clearCache();
+    $timeout.flush();
 
     expect(clearCacheCollection.length).toBe(2);
     expect(clearCacheCollection[0].stateName).toBe('page1');
@@ -1057,6 +1111,7 @@ describe('Ionic nav-view', function() {
     expect(divs.eq(0).text()).toBe('page3');
 
     $ionicHistory.clearCache();
+    $timeout.flush();
     expect(clearCacheCollection.length).toBe(0);
 
     var divs = elem.find('ion-nav-view').find('div');
@@ -1143,6 +1198,7 @@ describe('Ionic nav-view', function() {
     expect(tab2Ele.childElementCount).toBe(1);
 
     $ionicHistory.clearCache();
+    $timeout.flush();
 
     tab1Ele = elem[0].querySelector('ion-nav-view[name="tab1"]');
     expect(tab1Ele).toEqual(null);

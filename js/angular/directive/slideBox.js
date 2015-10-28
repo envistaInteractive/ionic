@@ -33,7 +33,7 @@
  * @param {boolean=} show-pager Whether a pager should be shown for this slide box. Accepts expressions via `show-pager="{{shouldShow()}}"`. Defaults to true.
  * @param {expression=} pager-click Expression to call when a pager is clicked (if show-pager is true). Is passed the 'index' variable.
  * @param {expression=} on-slide-changed Expression called whenever the slide is changed.  Is passed an '$index' variable.
- * @param {expression=} active-slide Model to bind the current slide to.
+ * @param {expression=} active-slide Model to bind the current slide index to.
  */
 IonicModule
 .directive('ionSlideBox', [
@@ -41,7 +41,8 @@ IonicModule
   '$compile',
   '$ionicSlideBoxDelegate',
   '$ionicHistory',
-function($timeout, $compile, $ionicSlideBoxDelegate, $ionicHistory) {
+  '$ionicScrollDelegate',
+function($timeout, $compile, $ionicSlideBoxDelegate, $ionicHistory, $ionicScrollDelegate) {
   return {
     restrict: 'E',
     replace: true,
@@ -81,8 +82,24 @@ function($timeout, $compile, $ionicSlideBoxDelegate, $ionicHistory) {
           $scope.activeSlide = slideIndex;
           // Try to trigger a digest
           $timeout(function() {});
+        },
+        onDrag: function() {
+          freezeAllScrolls(true);
+        },
+        onDragEnd: function() {
+          freezeAllScrolls(false);
         }
       });
+
+      function freezeAllScrolls(shouldFreeze) {
+        if (shouldFreeze && !_this.isScrollFreeze) {
+          $ionicScrollDelegate.freezeAllScrolls(shouldFreeze);
+
+        } else if (!shouldFreeze && _this.isScrollFreeze) {
+          $ionicScrollDelegate.freezeAllScrolls(false);
+        }
+        _this.isScrollFreeze = shouldFreeze;
+      }
 
       slider.enableSlide($scope.$eval($attrs.disableScroll) !== true);
 
@@ -112,7 +129,10 @@ function($timeout, $compile, $ionicSlideBoxDelegate, $ionicHistory) {
           return $ionicHistory.isActiveScope($scope);
         }
       );
-      $scope.$on('$destroy', deregisterInstance);
+      $scope.$on('$destroy', function() {
+        deregisterInstance();
+        slider.kill();
+      });
 
       this.slidesCount = function() {
         return slider.slidesCount();
@@ -132,7 +152,7 @@ function($timeout, $compile, $ionicSlideBoxDelegate, $ionicHistory) {
       '</div>' +
     '</div>',
 
-    link: function($scope, $element, $attr, slideBoxCtrl) {
+    link: function($scope, $element, $attr) {
       // if showPager is undefined, show the pager
       if (!isDefined($attr.showPager)) {
         $scope.showPager = true;
@@ -140,6 +160,7 @@ function($timeout, $compile, $ionicSlideBoxDelegate, $ionicHistory) {
       }
 
       $attr.$observe('showPager', function(show) {
+        if (show === undefined) return;
         show = $scope.$eval(show);
         getPager().toggleClass('hide', !show);
       });
@@ -161,10 +182,8 @@ function($timeout, $compile, $ionicSlideBoxDelegate, $ionicHistory) {
   return {
     restrict: 'E',
     require: '^ionSlideBox',
-    compile: function(element, attr) {
+    compile: function(element) {
       element.addClass('slider-slide');
-      return function($scope, $element, $attr) {
-      };
     }
   };
 })

@@ -150,9 +150,9 @@
 
       if (self.isWebView()) {
         self.platforms.push('webview');
-        if(!(!window.cordova && !window.PhoneGap && !window.phonegap)) {
+        if (!(!window.cordova && !window.PhoneGap && !window.phonegap)) {
           self.platforms.push('cordova');
-        } else if(!!window.forge) {
+        } else if (window.forge) {
           self.platforms.push('trigger');
         }
       } else {
@@ -295,13 +295,18 @@
       };
       if (versionMatch[pName]) {
         v = self.ua.match(versionMatch[pName]);
-        if (v &&  v.length > 2) {
+        if (v && v.length > 2) {
           platformVersion = parseFloat(v[1] + '.' + v[2]);
         }
       }
     },
 
-    // Check if the platform is the one detected by cordova
+    /**
+     * @ngdoc method
+     * @name ionic.Platform#is
+     * @param {string} Platform name.
+     * @returns {boolean} Whether the platform name provided is detected.
+     */
     is: function(type) {
       type = type.toLowerCase();
       // check if it has an array of platforms

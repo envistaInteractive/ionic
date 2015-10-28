@@ -1,3 +1,178 @@
+<a name"1.1.0"></a>
+### 1.1.0 "xenon-xerus" (2015-08-13)
+
+
+#### Bug Fixes
+
+
+* **location:** Fix preventDefault logic in ionic.Gesture.gestures.Drag ([e10b5d2](https://github.com/driftyco/ionic/commit/e10b5d2))
+* **menuClose:** Prevent clicking on current page link in sidemenu from disorganizing page hierarchy. Fixes [#4132](https://github.com/driftyco/ionic/issues/4132)) ([a379bfd](https://github.com/driftyco/ionic/commit/a379bfd))
+* **select:** prevent words from being cut off ([e8724e1](https://github.com/driftyco/ionic/commit/e8724e1))
+* **tabs:** adjust tabs and content when hiding the nav bar ([7e4fb15](https://github.com/driftyco/ionic/commit/7e4fb15))
+
+
+#### Features
+
+* **angular:** Upgrade to Angular 1.4 ([355bf6a](https://github.com/driftyco/ionic/commit/355bf6a))
+* **clearCache:** clearCache returns a promise ([336c388](https://github.com/driftyco/ionic/commit/336c388))
+
+
+<a name"1.0.1"></a>
+### 1.0.1 "vanadium-vaquita" (2015-06-30)
+
+
+#### Bug Fixes
+
+* **button:** fix line-height for button-small ([753fcde](https://github.com/driftyco/ionic/commit/753fcde))
+* **ionicConfig:**
+  * remove tel from images ([d256870](https://github.com/driftyco/ionic/commit/d256870)
+  * add content scheme to whitelist ([8572f38](https://github.com/driftyco/ionic/commit/8572f38)
+* **gestures:** only preventDefault on direction if direction supplied ([56ab0f2](https://github.com/driftyco/ionic/commit/56ab0f2))
+* **history:** maintain nextViewOptions with resolves  ([cef6708](https://github.com/driftyco/ionic/commit/cef6708))
+* **item:** set complex ionItems to use scss var  ([5aaa94a](https://github.com/driftyco/ionic/commit/5aaa94a))
+* **infiniteScroll:** reduce memory used by inactive spinner ([32da5cd](https://github.com/driftyco/ionic/commit/32da5cd))
+* **loading:** reduce memory used by inactive spinner ([f622817](https://github.com/driftyco/ionic/commit/f622817))
+* **popup:** close highest overlay  ([bcfe210](https://github.com/driftyco/ionic/commit/bcfe210))
+* **scroll:** keyboard support for native scroll views ([a293a23](https://github.com/driftyco/ionic/commit/a293a23))
+* **scrollView:** fix memory leak in JS scrolling cleanup ([d6431a7](https://github.com/driftyco/ionic/commit/d6431a7))
+* **tabs:**
+  * make icons and titles stay in the same position  ([d9b3b80](https://github.com/driftyco/ionic/commit/d9b3b80))
+  * fix icons and titles position  ([f76aedb](https://github.com/driftyco/ionic/commit/f76aedb))
+* **tap:** stop cloning date inputs ([d3c3e8c](https://github.com/driftyco/ionic/commit/d3c3e8c))
+* **viewSwitcher:** broadcast view transition events in a consistent order ([f78b1b3](https://github.com/driftyco/ionic/commit/f78b1b3))
+
+
+
+#### Features
+
+* **gestures:** add dragstart and dragend gestures ([7679690](https://github.com/driftyco/ionic/commit/7679690))
+* **sideMenu:** add menu open and close events ([dbd5881](https://github.com/driftyco/ionic/commit/dbd5881))
+* **spinner:** allow ionSpinner default to be set by ionicConfigProvider ([cf338cf](https://github.com/driftyco/ionic/commit/dbd5881))
+
+
+
+<a name"1.0.0"></a>
+### 1.0.0 "uranium-unicorn" (2015-05-12)
+
+#### Bug Fixes
+
+* **config:** add support for blob image protocol. ([d684d62a](https://github.com/driftyco/ionic/commit/d684d62a), closes [#3645](https://github.com/driftyco/ionic/issues/3645))
+* **fonts:** IE does not support query string cache busting in font URLs ([bd72a33](https://github.com/driftyco/ionic/commit/bd72a33))
+* **infiniteScroll:** prevent error on infinite scroll complete with native scrolling ([86565e24](https://github.com/driftyco/ionic/commit/86565e24), closes [#3682](https://github.com/driftyco/ionic/issues/3682))
+* **ionicConfig:** allow using tel for hrefs ([db730f16](https://github.com/driftyco/ionic/commit/db730f16), closes [#3647](https://github.com/driftyco/ionic/issues/3647))
+* **modal:** Prevent scroll=false content from overlapping modal content. ([4e74ead5](https://github.com/driftyco/ionic/commit/4e74ead5), closes [#3648](https://github.com/driftyco/ionic/issues/3648))
+* **scrolling:** Collection repeat requires JS scrolling ([0557c305](https://github.com/driftyco/ionic/commit/0557c305))
+
+
+
+<a name"1.0.0-rc.5"></a>
+### 1.0.0-rc.5 "tungsten-turkey" (2015-04-27)
+
+
+#### Bug Fixes
+
+* **backButton:**
+  * remove $event ([82dca6ab](https://github.com/driftyco/ionic/commit/82dca6ab))
+* **goBack:**
+  * specify how many views to go back ([63a0834d](https://github.com/driftyco/ionic/commit/63a0834d))
+* **input:**
+  * prevent input labels from being pushed left on focus ([a6d9d4c8](https://github.com/driftyco/ionic/commit/a6d9d4c8), closes [#1778](https://github.com/driftyco/ionic/issues/1778))
+* **ionicConfig:** 
+  * Whitelist Cordova Windows Phone style protocols ([19296c85](https://github.com/driftyco/ionic/commit/19296c85))
+  * Chrome regression no longer allows integer transition duration times ([34ed2d0f](https://github.com/driftyco/ionic/commit/34ed2d0f))
+* **keyboard:** 
+  * easily disable/re-enable keyboard ([f7db8c3f](https://github.com/driftyco/ionic/commit/f7db8c3f), closes [#2285](https://github.com/driftyco/ionic/issues/2285))
+  * check if input is in scroll view ([a86ec11f](https://github.com/driftyco/ionic/commit/a86ec11f), closes [#3586](https://github.com/driftyco/ionic/issues/3586))
+* **ngShow:** WP fix for ngShow. ([c64e0bae](https://github.com/driftyco/ionic/commit/c64e0bae), closes [#3498](https://github.com/driftyco/ionic/issues/3498))
+* **range:**
+  * Display range inputs on WP ([e8ecfe9c](https://github.com/driftyco/ionic/commit/e8ecfe9c), closes [#3479](https://github.com/driftyco/ionic/issues/3479))
+* **scroll:**
+  * set ms-viewport to prevent IE "squish" effect ([26361d65](https://github.com/driftyco/ionic/commit/26361d65))
+  * Windows Phone default to native scrolling ([c40e36c1](https://github.com/driftyco/ionic/commit/c40e36c1))* 
+**slidebox:**
+  * prevent read only property error on assigning of length. ([08956b29](https://github.com/driftyco/ionic/commit/08956b29), closes [#3589](https://github.com/driftyco/ionic/issues/3589))
+* **spinners:**
+  * WP doesn't support smil. default wp spinner to spinner that uses timing func. ([e5930c0c](https://github.com/driftyco/ionic/commit/e5930c0c), closes [#3480](https://github.com/driftyco/ionic/issues/3480))
+
+
+
+<a name"1.0.0-rc.4"></a>
+### 1.0.0-rc.4 "sulfur-suricate" (2015-04-20)
+
+
+#### Bug Fixes
+
+
+* **backdrop:**
+  * dont allow counter to go below 0 ([fdca73a5](https://github.com/driftyco/ionic/commit/fdca73a5))
+* **clearCache:** 
+  * ensure async transition completed ([c4364377](https://github.com/driftyco/ionic/commit/c4364377), closes [#2939](https://github.com/driftyco/ionic/issues/2939))
+* **collectionRepeat:**
+  * when array is empty, dont use heightGetter/widthGetter ([bd4723c9](https://github.com/driftyco/ionic/commit/bd4723c9), closes [#3440](https://github.com/driftyco/ionic/issues/3440))
+* **content:**
+  * make on-scroll-complete pass (scrollLeft, scrollTop) locals ([10552634](https://github.com/driftyco/ionic/commit/10552634), closes [#2464](https://github.com/driftyco/ionic/issues/2464))
+* **exposeAsideWhen:**
+  * give content time to initialize ([255ccb7a](https://github.com/driftyco/ionic/commit/255ccb7a), closes [#2693](https://github.com/driftyco/ionic/issues/2693))
+* **ionDeleteButton:** 
+  * stop clicks from bubbling up to main item ([0421596b](https://github.com/driftyco/ionic/commit/0421596b))
+* **ionItem:**
+  * do not auto add target attr ([8e47266d](https://github.com/driftyco/ionic/commit/8e47266d), closes [#3497](https://github.com/driftyco/ionic/issues/3497))
+* **infiniteScroll:**
+  * prevent checkbounds when infinitescroll completes when page is cached. ([6ee9e26b](https://github.com/driftyco/ionic/commit/6ee9e26b), closes [#2694](https://github.com/driftyco/ionic/issues/2694))
+* **keyboard:**
+  * use keyboardGetHeight not ionic.keyboard.height ([04da0fc7](https://github.com/driftyco/ionic/commit/04da0fc7))
+  * overflow: visible on scroll view when keyboard is open ([edb62c2c](https://github.com/driftyco/ionic/commit/edb62c2c))
+* **modal:**
+  * fix race conditions and memory leaks ([008df7b9](https://github.com/driftyco/ionic/commit/008df7b9))
+  * clean up event listeners when hiding modal ([218605f0](https://github.com/driftyco/ionic/commit/218605f0))
+* **popup:**
+  * fix race conditions and memory leaks ([e86b331d](https://github.com/driftyco/ionic/commit/e86b331d), closes [#2815](https://github.com/driftyco/ionic/issues/2815))
+  * make sure backdrop is always released ([31de853f](https://github.com/driftyco/ionic/commit/31de853f), closes [#3524](https://github.com/driftyco/ionic/issues/3524))
+  * synchronously add/remove popups from stack, no matter the animation state ([9baf219e](https://github.com/driftyco/ionic/commit/9baf219e), closes [#3131](https://github.com/driftyco/ionic/issues/3131))
+* **refresher:**
+  * fix pull to refresh with native scrolling on kitkat ([71e89715](https://github.com/driftyco/ionic/commit/71e89715))
+* **scroll:**
+  * rename 'scroll.resize' to 'scroll-resize' for jQuery's sake ([e19863c3](https://github.com/driftyco/ionic/commit/e19863c3), closes [#3384](https://github.com/driftyco/ionic/issues/3384))
+* **slidebox:**
+  * prevent resize when hidden ([040dabf2](https://github.com/driftyco/ionic/commit/040dabf2), closes [#2817](https://github.com/driftyco/ionic/issues/2817))
+  * properly cleanup window resize listener ([51f8f3cd](https://github.com/driftyco/ionic/commit/51f8f3cd))
+* **spinners:** 
+  * spiral spinners have correct gradient tail color when using emotion colors. ([7db6c7ff](https://github.com/driftyco/ionic/commit/7db6c7ff), closes [#3328](https://github.com/driftyco/ionic/issues/3328))
+* **swipeBack:** 
+  * disable swipe back per view ([c602cde8](https://github.com/driftyco/ionic/commit/c602cde8), closes [#3470](https://github.com/driftyco/ionic/issues/3470))
+* **$ionicSlideBoxDelegate:**
+  * add `speed` parameter to next()/previous() ([b3c086eb](https://github.com/driftyco/ionic/commit/b3c086eb), closes [#3493](https://github.com/driftyco/ionic/issues/3493))
+
+
+<a name"1.0.0-rc.3"></a>
+### 1.0.0-rc.3 "radium-raccoon" (2015-04-13)
+
+
+#### Bug Fixes
+
+* **slidebox:**
+  * `show-pager` defaults to true ([95688d6a](https://github.com/driftyco/ionic/commit/95688d6a))
+  * prevent scrolling while sliding ([db7f0eee](https://github.com/driftyco/ionic/commit/db7f0eee), closes [#2814](https://github.com/driftyco/ionic/issues/2814))
+* **fonts**
+  * Add support for the Segoe UI font for Windows Phone support ([3690dbf](https://github.com/driftyco/ionic/commit/3690dbf))
+* **nav:**
+  * back btn and bar hide/show ([0936f78c](https://github.com/driftyco/ionic/commit/0936f78c))
+* **backButton:**
+  * dynamic icon/text updates ([a0c3c557](https://github.com/driftyco/ionic/commit/a0c3c557), closes [#3281](https://github.com/driftyco/ionic/issues/3281))
+* **navbar:** 
+  * re-align title after show ([0e1689d5](https://github.com/driftyco/ionic/commit/0e1689d5), closes [#3064](https://github.com/driftyco/ionic/issues/3064))
+* **collectionRepeat:**
+  * in grid, use height of tallest item in row ([40bedd7d](https://github.com/driftyco/ionic/commit/40bedd7d), closes [#3387](https://github.com/driftyco/ionic/issues/3387))
+  * properly resize when aside is exposed ([6c08b780](https://github.com/driftyco/ionic/commit/6c08b780), closes [#3352](https://github.com/driftyco/ionic/issues/3352))
+  * compute width when height is not given ([1e36afc6](https://github.com/driftyco/ionic/commit/1e36afc6), closes [#3357](https://github.com/driftyco/ionic/issues/3357))
+* **modal:** 
+  * fix header bar in modals with top tabs. ([40604681](https://github.com/driftyco/ionic/commit/40604681), closes [#3347](https://github.com/driftyco/ionic/issues/3347), [#3346](https://github.com/driftyco/ionic/issues/3346))
+  * prevent ghost clicks on close ([a416c66d](https://github.com/driftyco/ionic/commit/a416c66d))
+* **ionItem:**
+  * vertically center select in an item ([6df89d78](https://github.com/driftyco/ionic/commit/6df89d78), closes [#3517](https://github.com/driftyco/ionic/issues/3517))
+* **keyboard:**
+  * keyboard performance improvements ([70576d9](https://github.com/driftyco/ionic/commit/70576d9))
+
 ### 1.0.0-rc.2 "palladium-platypus" (2015-03-30)
 
 
@@ -1053,8 +1228,8 @@ New Code:
 
 * **ionHeaderBar, ionFooterBar**: remove `type`, `title`, `left-buttons`, `right-buttons`.
 
-Relevant Documentation: [ionHeaderBar](http://ionicframework.com/docs/api/directive/ionHeaerBar),
-[ionFooterBar](http://ionicframework.com/docs/api/directive/ionFooterBar).
+Relevant Documentation: [ionHeaderBar](http://ionicframework.com/docs/api/directive/ionHeaderBar/),
+[ionFooterBar](http://ionicframework.com/docs/api/directive/ionFooterBar/).
 
 Old Code:
 
