@@ -1811,6 +1811,11 @@
                 s.emit('onTransitionStart', s);
                 if (s.activeIndex !== s.previousIndex) {
                     s.emit('onSlideChangeStart', s);
+                    _scope.$emit("$ionicSlides.slideChangeStart", {
+                      slider: s,
+                      activeIndex: s.getSlideDataIndex(s.activeIndex),
+                      previousIndex: s.getSlideDataIndex(s.previousIndex)
+                    });
                     if (s.activeIndex > s.previousIndex) {
                         s.emit('onSlideNextStart', s);
                     }
@@ -1830,6 +1835,11 @@
                 s.emit('onTransitionEnd', s);
                 if (s.activeIndex !== s.previousIndex) {
                     s.emit('onSlideChangeEnd', s);
+                    _scope.$emit("$ionicSlides.slideChangeEnd", {
+                      slider: s,
+                      activeIndex: s.getSlideDataIndex(s.activeIndex),
+                      previousIndex: s.getSlideDataIndex(s.previousIndex)
+                    });
                     if (s.activeIndex > s.previousIndex) {
                         s.emit('onSlideNextEnd', s);
                     }
@@ -2044,14 +2054,49 @@
             }
             s.observers = [];
         };
+
+        s.updateLoop = function(){
+          var currentSlide = s.slides.eq(s.activeIndex);
+          if ( angular.element(currentSlide).hasClass(s.params.slideDuplicateClass) ){
+            // we're on a duplicate, so slide to the non-duplicate
+            var swiperSlideIndex = angular.element(currentSlide).attr("data-swiper-slide-index");
+            var slides = s.wrapper.children('.' + s.params.slideClass);
+            for ( var i = 0; i < slides.length; i++ ){
+              if ( !angular.element(slides[i]).hasClass(s.params.slideDuplicateClass) && angular.element(slides[i]).attr("data-swiper-slide-index") === swiperSlideIndex ){
+                s.slideTo(i, 0, false, true);
+                break;
+              }
+            }
+            // if we needed to switch slides, we did that.  So, now call the createLoop function internally
+            setTimeout(function(){
+              s.createLoop();
+            }, 50);
+          }
+        }
+
+        s.getSlideDataIndex = function(slideIndex){
+          // this is an Ionic custom function
+          // Swiper loops utilize duplicate DOM elements for slides when in a loop
+          // which means that we cannot rely on the actual slide index for our events
+          // because index 0 does not necessarily point to index 0
+          // and index n+1 does not necessarily point to the expected piece of data
+          // therefore, rather than using the actual slide index we should
+          // use the data index that swiper includes as an attribute on the dom elements
+          // because this is what will be meaningful to the consumer of our events
+          var slide = s.slides.eq(slideIndex);
+          var attributeIndex = angular.element(slide).attr("data-swiper-slide-index");
+          return parseInt(attributeIndex);
+        }
+
         /*=========================
           Loop
           ===========================*/
         // Create looped slides
         s.createLoop = function () {
-
-            var toRemove = s.wrapper.children('.' + s.params.slideClass + '.' + s.params.slideDuplicateClass);
-            angular.element(toRemove).remove();
+          //console.log("Slider create loop method");
+            //var toRemove = s.wrapper.children('.' + s.params.slideClass + '.' + s.params.slideDuplicateClass);
+            //angular.element(toRemove).remove();
+            s.wrapper.children('.' + s.params.slideClass + '.' + s.params.slideDuplicateClass).remove();
 
             var slides = s.wrapper.children('.' + s.params.slideClass);
 
@@ -2071,16 +2116,17 @@
                 slide.attr('data-swiper-slide-index', index);
             });
             for (i = 0; i < appendSlides.length; i++) {
+
               newNode = angular.element(appendSlides[i]).clone().addClass(s.params.slideDuplicateClass);
               newNode.removeAttr('ng-transclude');
               newNode.removeAttr('ng-repeat');
               scope = angular.element(appendSlides[i]).scope();
               newNode = $compile(newNode)(scope);
               angular.element(s.wrapper).append(newNode);
-                //s.wrapper.append($(appendSlides[i].cloneNode(true)).addClass(s.params.slideDuplicateClass));
+              //s.wrapper.append($(appendSlides[i].cloneNode(true)).addClass(s.params.slideDuplicateClass));
             }
             for (i = prependSlides.length - 1; i >= 0; i--) {
-                //s.wrapper.prepend($(prependSlides[i].cloneNode(true)).addClass(s.params.slideDuplicateClass));
+              //s.wrapper.prepend($(prependSlides[i].cloneNode(true)).addClass(s.params.slideDuplicateClass));
 
               newNode = angular.element(prependSlides[i]).clone().addClass(s.params.slideDuplicateClass);
               newNode.removeAttr('ng-transclude');
